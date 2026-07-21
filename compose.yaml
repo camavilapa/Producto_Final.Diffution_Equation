@@ -1,0 +1,5 @@
+services:
+  neumann:
+    build: .
+    volumes:
+      - ./output_Neumann:/app/output_Neumann

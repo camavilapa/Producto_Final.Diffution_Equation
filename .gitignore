@@ -1,0 +1,10 @@
+# Ejecutables
+a.out
+*.out
+*.exe
+*.x
+*.tar.gz
+#Data
+*.txt
+.vtk
+output_Neumann/

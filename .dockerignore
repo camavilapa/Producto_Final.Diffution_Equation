@@ -1,0 +1,8 @@
+output_Neumann/
+*.vtk
+*.exe
+*.x
+*.o
+eigen-5.0.0/
+.git
+.gitignore
