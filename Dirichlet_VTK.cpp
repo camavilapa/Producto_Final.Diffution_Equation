@@ -5,6 +5,10 @@
 #include "euler.h"
 
 //Compílese con g++ -std=c++23 Dirichlet_VTK.cpp vtk_exporter.cpp -O3 -o dirichlet.x
+/*
+docker build -t dirichlet-sim .
+docker compose up --build
+*/
 
 void set_initial_conditions(Eigen::VectorXd &s);
 void fderiv(const Eigen::VectorXd &s, Eigen::VectorXd &dsdt, double t);
@@ -21,9 +25,9 @@ const double dy = Ly / (Ny);
 
 // Condiciones de frontera térmicas en Celsius (°C) o Kelvin (K)
 const double T_izq = 0.0; 
-const double T_der = 100.0;
-const double T_inf = 100.0;
-const double T_sup = 0.0;
+const double T_der = 0.0;
+const double T_inf = 0.0;
+const double T_sup = 100.0;
 const double T_inicial = 0.0; // Interior de la placa
 
 //tar -czf output_Dirichlet.tar.gz output_Dirichlet/
@@ -46,9 +50,9 @@ int main() {
     double max_alpha = alpha_grid.maxCoeff();
     double dt_cfl = 1.0 / (2.0 * max_alpha * ((1.0 / (dx * dx)) + (1.0 / (dy * dy))));
     
-    //double dt = dt_cfl * 0.8; 
+    double dt = dt_cfl * 0.8; 
     //std::println("dt = {:25.5e}",dt);
-    double dt = 0.0014;
+    //double dt = 0.0014;
     double t_init = 0.0;
     double t_end = 2.0; 
   
@@ -58,8 +62,8 @@ int main() {
 
     // Ejecutar la integración numérica 
 
-    integrate_rk4(fderiv, T, t_init, t_end, dt, writer);
-    //integrate_euler(fderiv, T, t_init, t_end, dt, writer);
+    //integrate_rk4(fderiv, T, t_init, t_end, dt, writer);
+    integrate_euler(fderiv, T, t_init, t_end, dt, writer);
     return 0;
 }
 void set_initial_conditions(Eigen::VectorXd &s) {
