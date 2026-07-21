@@ -1,7 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <print>
+
 #include <eigen3/Eigen/Core> // Estructura Core de Eigen para vectores dinámicos
 #include "rk4.h"
 #include "vtk_exporter.h"
@@ -55,7 +52,7 @@ int main() {
     double dt_cfl = 1.0 / (2.0 * max_alpha * ((1.0 / (dx * dx)) + (1.0 / (dy * dy))));
     
     double dt = dt_cfl * 0.8; 
-    std::println("dt = {:25.5e}",dt);
+    //std::println("dt = {:25.5e}",dt);
 
     double t_init = 0.0;
     double t_end = 4.0; 

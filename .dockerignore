@@ -3,6 +3,6 @@ output_Neumann/
 *.exe
 *.x
 *.o
-eigen-5.0.0/
 .git
 .gitignore
+

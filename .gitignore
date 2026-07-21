@@ -8,3 +8,6 @@ a.out
 *.txt
 .vtk
 output_Neumann/
+output_Dirichlet/
+output_Dirichlet_euler/
+output_Dirichlet_rk4/

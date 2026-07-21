@@ -2,4 +2,6 @@ services:
   neumann:
     build: .
     volumes:
-      - ./output_Neumann:/app/output_Neumann
+      - ./output_Dirichlet:/app/output_Dirichlet
+
+#      - ./output_Neumann:/app/output_Neumann

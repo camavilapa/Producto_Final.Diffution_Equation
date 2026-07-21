@@ -1,10 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <print>
+
 #include <eigen3/Eigen/Core> // Estructura Core de Eigen para vectores dinámicos
 #include "rk4.h"
 #include "vtk_exporter.h"
+#include "euler.h"
 
 //Compílese con g++ -std=c++23 Dirichlet_VTK.cpp vtk_exporter.cpp -O3 -o dirichlet.x
 
@@ -14,6 +12,7 @@ void writer(const Eigen::VectorXd &s, double t);
 
 const int Nx = 50;  // Número de nodos en X (incluyendo fronteras)
 const int Ny = 50;  // Número de nodos en Y (incluyendo fronteras)
+
 const double Lx = 1.0;
 const double Ly = 1.0;
 
@@ -27,9 +26,7 @@ const double T_inf = 100.0;
 const double T_sup = 0.0;
 const double T_inicial = 0.0; // Interior de la placa
 
-// Vector global para almacenar la difusividad térmica espacial alpha(x,y)
 //tar -czf output_Dirichlet.tar.gz output_Dirichlet/
-
 
 Eigen::VectorXd alpha_grid(Nx * Ny);
 long N_write = 0;
@@ -49,8 +46,9 @@ int main() {
     double max_alpha = alpha_grid.maxCoeff();
     double dt_cfl = 1.0 / (2.0 * max_alpha * ((1.0 / (dx * dx)) + (1.0 / (dy * dy))));
     
-    double dt = dt_cfl * 0.8; 
+    //double dt = dt_cfl * 0.8; 
     //std::println("dt = {:25.5e}",dt);
+    double dt = 0.0014;
     double t_init = 0.0;
     double t_end = 2.0; 
   
@@ -58,10 +56,10 @@ int main() {
     long target_frames = 500;
     N_write = std::max(1L, total_steps / target_frames); //1L significa un 1 definido como long, que debe ser aí para que funcione std::max ya que compara long con long
 
+    // Ejecutar la integración numérica 
 
-    // Ejecutar la integración numérica con el algoritmo RK4
     integrate_rk4(fderiv, T, t_init, t_end, dt, writer);
-
+    //integrate_euler(fderiv, T, t_init, t_end, dt, writer);
     return 0;
 }
 void set_initial_conditions(Eigen::VectorXd &s) {
